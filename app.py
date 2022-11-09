@@ -30,7 +30,7 @@ def summary():
     # print(response.status_code)
     return response.json()
 
-@app.post("/filesystem")
+@app.get("/filesystem")
 def hashtags():
     source = str(request.args.get('source'))
     a = source.replace("/", "%2F")
