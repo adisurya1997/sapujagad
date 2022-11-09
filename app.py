@@ -41,30 +41,16 @@ def hashtags():
     # print(response.status_code)
     return response.json()
 
-@app.get("/products/<id>")
-def getProductById(id):
-    try:
-        url = "/".join([api_base_url, "products", id])
-        response = requests.get(url)
-        respBody = response.json()
+@app.post("/restart")
+def restart():
 
-        if response.status_code != 200:
-            if respBody.get('message') == 'project not found':
-                respJson = jsonify(
-                    {"message": "failed to connect to your project, please check if the api had been set properly."}, 
-                )
-                respJson.status_code = response.status_code
-
-                return respJson
-
-            respJson = jsonify(respBody)
-            respJson.status_code = response.status_code
-
-            return respJson
-
-        return jsonify(respBody)
-    except Exception as e:
-        return jsonify({"message": "error occured: " + e.__str__()})
+    url="http://10.10.65.1:8080/api/v1/clusters/sapujagad/requests"
+    username = "sapujagad"
+    password = "kayangan"
+    payload = '{"RequestInfo":{"context":"Execute REFRESH_NODES","command":"REFRESH_NODES"},"Requests/resource_filters":[{"service_name":"HDFS","component_name":"NAMENODE","hosts":"sapujagad-master01.kayangan.com"}]}'
+    response = requests.post(url, auth=(username, password), data=payload)
+    # print(response.status_code)
+    return response.json()
 
 @app.patch("/products/<id>")
 def updateProduct(id):
