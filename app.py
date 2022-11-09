@@ -41,7 +41,7 @@ def hashtags():
     # print(response.status_code)
     return response.json()
 
-@app.post("/restart")
+@app.post("/hdfs/restart")
 def restart():
 
     url="http://10.10.65.1:8080/api/v1/clusters/sapujagad/requests"
@@ -52,55 +52,27 @@ def restart():
     # print(response.status_code)
     return response.json()
 
-@app.patch("/products/<id>")
-def updateProduct(id):
-    try:
-        url = "/".join([api_base_url, "products", id])
-        response = requests.patch(url, json.dumps(request.json, indent=2))
-        respBody = response.json()
+@app.put("/hdfs/stop")
+def stop():
 
-        if response.status_code != 200:
-            if respBody.get('message') == 'project not found':
-                respJson = jsonify(
-                    {"message": "failed to connect to your project, please check if the api had been set properly."}, 
-                )
-                respJson.status_code = response.status_code
+    url="http://10.10.65.1:8080/api/v1/clusters/sapujagad/services/HDFS"
+    username = "sapujagad"
+    password = "kayangan"
+    payload = '{"RequestInfo":{"context":"_PARSE_.STOP.HDFS","operation_level":{"level":"SERVICE","cluster_name":"sapujagad","service_name":"HDFS"}},"Body":{"ServiceInfo":{"state":"INSTALLED"}}}'
+    response = requests.put(url, auth=(username, password), data=payload)
+    # print(response.status_code)
+    return response.json()
 
-                return respJson
+@app.put("/hdfs/start")
+def start():
 
-            respJson = jsonify(respBody)
-            respJson.status_code = response.status_code
-
-            return respJson
-        
-        return jsonify(respBody)
-    except Exception as e:
-        return jsonify({"message": "error occured: " + e.__str__()})
-
-@app.delete("/products/<id>")
-def deleteProduct(id):
-    try:
-        url = "/".join([api_base_url, "products", id])
-        response = requests.delete(url)
-        respBody = response.json()
-
-        if response.status_code != 200:
-            if respBody.get('message') == 'project not found':
-                respJson = jsonify(
-                    {"message": "failed to connect to your project, please check if the api had been set properly."}, 
-                )
-                respJson.status_code = response.status_code
-
-                return respJson
-
-            respJson = jsonify(respBody)
-            respJson.status_code = response.status_code
-
-            return respJson
-
-        return jsonify(respBody)
-    except Exception as e:
-        return jsonify({"message": "error occured: " + e.__str__()})
+    url="http://10.10.65.1:8080/api/v1/clusters/sapujagad/services/HDFS"
+    username = "sapujagad"
+    password = "kayangan"
+    payload = '{"RequestInfo":{"context":"_PARSE_.START.HDFS","operation_level":{"level":"SERVICE","cluster_name":"sapujagad","service_name":"HDFS"}},"Body":{"ServiceInfo":{"state":"STARTED"}}}'
+    response = requests.put(url, auth=(username, password), data=payload)
+    # print(response.status_code)
+    return response.json()
 
 if __name__ == "__main__":
     app.run(debug=True)
