@@ -89,8 +89,8 @@ def check():
     z = x.replace("'", '"' )
     a = z.replace('{"items":', "")
     b = a[:-1]
-    data = json.dumps(b)
-    return data
+#     data = json.dumps(b)
+    return b
 
 if __name__ == "__main__":
     app.run(debug=True)
