@@ -89,8 +89,8 @@ def check():
     z = x.replace("'", '"' )
     a = z.replace('{"items":', "")
     b = a[:-1]
-#     data = json.loads(b)
-    return jsonify(b)
+    data = json.loads(b)
+    return jsonify(data)
 
 @app.get("/sqoop/summary")
 def sqoop():
