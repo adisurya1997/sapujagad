@@ -89,7 +89,7 @@ def check():
     z = x.replace("'", '"' )
     a = z.replace('{"items":', "")
     b = a[:-1]
-#     data = json.loads(b)
+    data = json.dumps(b)
     return b
 
 if __name__ == "__main__":
