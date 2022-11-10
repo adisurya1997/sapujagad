@@ -74,5 +74,19 @@ def start():
     # print(response.status_code)
     return response.json()
 
+@app.put("/sqoop/summary")
+def check():
+    url="http://10.10.65.1:8080/api/v1/clusters/sapujagad/components/?ServiceComponentInfo/component_name=APP_TIMELINE_SERVER|ServiceComponentInfo/category.in(MASTER,CLIENT)&fields=ServiceComponentInfo/service_name,host_components/HostRoles/display_name&minimal_response=true&_=1667968440999"
+    username = "sapujagad"
+    password = "kayangan"
+    response = requests.get(url, auth=(username, password))
+
+    x = str(response.json())
+    z = x.replace("'", '"' )
+    a = z.replace('{"items":', "")
+    b = a[:-1]
+    data = json.loads(b)
+    return data
+
 if __name__ == "__main__":
     app.run(debug=True)
