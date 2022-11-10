@@ -27,12 +27,12 @@ def summary():
     username = "sapujagad"
     password = "kayangan"
     response = requests.get(url, auth=(username, password))
-    x = str(response.json())
-    z = x.replace("'", '"' )
-    a = z.replace('{"items":', "")
-    b = a[:-1]
-    data = json.loads(b)
-    return jsonify(data)
+#     x = str(response.json())
+#     z = x.replace("'", '"' )
+#     a = z.replace('{"items":', "")
+#     b = a[:-1]
+#     data = json.loads(b)
+    return response.json()
 
 @app.get("/filesystem")
 def hashtags():
