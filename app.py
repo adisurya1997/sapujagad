@@ -92,11 +92,15 @@ def check():
     data = json.loads(b)
     return jsonify(data)
 
-# @app.get("/sqoop/summary")
-# def sqoop():
-#     url="http://pmzmzxzinc.function.microgen.id/check"
-#     response = requests.get(url)
-#     return response.json()
+@app.post("/sqoop/restart")
+def srestart():
+    url="http://10.10.65.1:8080/api/v1/clusters/sapujagad/requests"
+    username = "sapujagad"
+    password = "kayangan"
+    payload = '{"RequestInfo":{"command":"RESTART","context":"Restart all components for SQOOP","operation_level":{"level":"SERVICE","cluster_name":"sapujagad","service_name":"SQOOP"}},"Requests/resource_filters":[{"service_name":"SQOOP","component_name":"SQOOP","hosts":"sapujagad-edge01.kayangan.com,sapujagad-edge02.kayangan.com,sapujagad-master01.kayangan.com,sapujagad-master02.kayangan.com,sapujagad-worker01.kayangan.com,sapujagad-worker02.kayangan.com,sapujagad-worker03.kayangan.com,sapujagad-worker04.kayangan.com,sapujagad-worker05.kayangan.com"}]}'
+    response = requests.post(url, auth=(username, password), data=payload)
+    # print(response.status_code)
+    return response.json()
 
 if __name__ == "__main__":
     app.run(debug=True)
