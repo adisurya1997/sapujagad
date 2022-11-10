@@ -90,7 +90,7 @@ def check():
     a = z.replace('{"items":', "")
     b = a[:-1]
     data = json.dumps(b)
-    return b
+    return data
 
 if __name__ == "__main__":
     app.run(debug=True)
