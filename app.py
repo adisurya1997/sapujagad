@@ -92,6 +92,17 @@ def check():
     data = json.loads(b)
     return jsonify(data)
 
+@app.post("/mkdir")
+def mkdir():
+    url="http://10.10.65.1:8080/api/v1/views/FILES/versions/1.0.0/instances/hdfs_viewer/resources/files/fileops/mkdir"
+    username = "sapujagad"
+    password = "kayangan"
+    content = request.json
+    path = str(content['path'])
+    # payload = '{"path" : "/user/sapujagad/test3"}'
+    response = requests.put(url, auth=(username, password), json={"path": path})
+    return response.json() 
+
 @app.post("/sqoop/restart")
 def srestart():
     url="http://10.10.65.1:8080/api/v1/clusters/sapujagad/requests"
