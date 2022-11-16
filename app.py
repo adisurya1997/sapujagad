@@ -127,7 +127,7 @@ def deletefile():
 
 
 @app.delete("/hdfs/file/permanent")
-def deletefile():
+def deletefilepermanent():
     url="http://10.10.65.1:8080/api/v1/views/FILES/versions/1.0.0/instances/hdfs_viewer/resources/files/fileops/remove"
     username = "sapujagad"
     password = "kayangan"
