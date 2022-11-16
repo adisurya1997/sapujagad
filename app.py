@@ -120,7 +120,20 @@ def deletefile():
     password = "kayangan"
     content = request.json
     path = str(content['path'])
-    recursive = str(content['recursive'])
+    recursive = "true"
+    response = requests.post(url, auth=(username, password), json={"paths":[{"path": path,"recursive":recursive}]})
+    # print(response.status_code)
+    return response.json()
+
+
+@app.delete("/hdfs/file/permanent")
+def deletefile():
+    url="http://10.10.65.1:8080/api/v1/views/FILES/versions/1.0.0/instances/hdfs_viewer/resources/files/fileops/remove"
+    username = "sapujagad"
+    password = "kayangan"
+    content = request.json
+    path = str(content['path'])
+    recursive = "true"
     response = requests.post(url, auth=(username, password), json={"paths":[{"path": path,"recursive":recursive}]})
     # print(response.status_code)
     return response.json()
