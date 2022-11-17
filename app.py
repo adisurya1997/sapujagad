@@ -1,6 +1,8 @@
 import json
 import os
 import requests
+import time
+import datetime
 from sys import stderr
 from flask import Flask, request, jsonify
 
@@ -28,6 +30,20 @@ def sumdatanodes():
     password = "kayangan"
     response = requests.get(url, auth=(username, password))
     # print(response.status_code)
+    return response.json()
+
+@app.get("/hdfs/summary/journalnodes")
+def sumjournalnodes():
+    d=str(datetime.datetime.now())
+    p='%Y-%m-%d %H:%M:%S.%f'
+    a = int(time.mktime(time.strptime(d,p)))
+    e = int(time.mktime(time.strptime(d,p))) - 3600
+    z = str(a)
+    x = str(e)
+    url="http://10.10.65.1:8080/api/v1/clusters/sapujagad/hosts?page_size=100&from=0&(host_components/HostRoles/component_name=JOURNALNODE)&minimal_response=true&_="+z+""
+    username = "sapujagad"
+    password = "kayangan"
+    response = requests.get(url, auth=(username, password))
     return response.json()
 
 @app.get("/hdfs/summary")
