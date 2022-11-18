@@ -202,5 +202,16 @@ def checkhost():
             dict_obj.add(i,user['Hosts']['host_name'])
     return dict_obj
 
+@app.post("/hdfs/permission")
+def hdfspermission():
+    url = 'http://10.10.65.1:8080/api/v1/views/FILES/versions/1.0.0/instances/hdfs_viewer/resources/files/fileops/chmod'
+    username = "sapujagad"
+    password = "kayangan"
+    content = request.json
+    path = str(content['path'])
+    mode = str(content['mode'])
+    response = requests.post(url, auth=(username, password),json={"mode":mode,"path": path})
+    return response.json()
+
 if __name__ == "__main__":
     app.run(debug=True)
