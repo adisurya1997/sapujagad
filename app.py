@@ -77,9 +77,9 @@ def summary():
 def hashtags():
     source = str(request.args.get('source'))
     a = source.replace("/", "%2F")
-    url="http://10.10.65.1:8080/api/v1/views/FILES/versions/1.0.0/instances/hdfs_viewer/resources/files/fileops/listdir?nameFilter=&path="+ a +"&_=1667963722829"
-    username = "sapujagad"
-    password = "kayangan"
+    url="http://10.207.26.20:8080/api/v1/views/FILES/versions/1.0.0/instances/hdfs_viewer/resources/files/fileops/listdir?nameFilter=&path="+ a +"&_=1667963722829"
+    username = "admin"
+    password = "admin"
     response = requests.get(url, auth=(username, password))
     # print(response.status_code)
     return response.json()
