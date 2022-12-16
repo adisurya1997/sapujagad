@@ -17,10 +17,8 @@ baseurl= "10.207.26.20"
 username= "admin"
 password=   "admin"
 @app.route('/hdfs/metrics')
-def hashtag(baseurl,username,password):
+def hashtag():
     url = "http://"+baseurl+":8080/api/v1/clusters/sapujagad/services/HDFS/components/DATANODE"
-    username = username
-    password = password
     response = requests.get(url, auth=(username, password))
     # print(response.status_code)
     return response.json()
