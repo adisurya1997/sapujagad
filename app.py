@@ -13,12 +13,12 @@ if api_key == "":
     print("api key is required", file=stderr)
 
 api_base_url = "https://api.stagingv3.microgen.id/query/api/v1/" + api_key
-
+baseurl= "10.207.26.20"
+username= "admin"
+password=   "admin"
 @app.route('/hdfs/metrics')
-def hashtag():
-    url = "http://10.10.65.1:8080/api/v1/clusters/sapujagad/services/HDFS/components/DATANODE"
-    username = "sapujagad"
-    password = "kayangan"
+def hashtag(baseurl,username,password):
+    url = "http://"+baseurl+":8080/api/v1/clusters/sapujagad/services/HDFS/components/DATANODE"
     response = requests.get(url, auth=(username, password))
     # print(response.status_code)
     return response.json()
