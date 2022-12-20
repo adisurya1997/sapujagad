@@ -139,7 +139,8 @@ def deletefilepermanent():
     content = request.json
     path = str(content['path'])
     recursive = "true"
-    response = requests.post(url, auth=(username, password), json={"paths":[{"path": path,"recursive":recursive}]})
+    headers = {"X-Requested-By": "admin"}
+    response = requests.post(url,headers=headers, auth=(username, password), json={"paths":[{"path": path,"recursive":recursive}]})
     # print(response.status_code)
     return response.json()
 
